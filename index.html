@@ -1,0 +1,550 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Gửi Đặng Như Huỳnh</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg1: #12061a;
+      --bg2: #2b1038;
+      --pink: #ff7eb6;
+      --rose: #ff4d8d;
+      --soft: #ffd8e8;
+      --text: #fff7fb;
+      --muted: rgba(255,247,251,.78);
+      --line: rgba(255,255,255,.14);
+      --shadow: 0 24px 80px rgba(0,0,0,.32);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: Inter, system-ui, sans-serif;
+      color: var(--text);
+      overflow-x: hidden;
+      background:
+        radial-gradient(circle at 20% 20%, rgba(255,126,182,.22), transparent 26%),
+        radial-gradient(circle at 80% 0%, rgba(255,77,141,.24), transparent 24%),
+        radial-gradient(circle at 50% 100%, rgba(255,216,232,.12), transparent 28%),
+        linear-gradient(135deg, var(--bg1), var(--bg2));
+      animation: backgroundShift 14s ease-in-out infinite alternate;
+    }
+    .hearts, .stars, .petals {
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    .heart, .star, .petal {
+      position: absolute;
+      opacity: .35;
+      animation: floatUp linear infinite;
+    }
+    .heart { color: #ff84b7; font-size: 18px; }
+    .star { color: #fff2f7; font-size: 10px; animation-name: twinkleFloat; }
+    .petal { color: #ffb3d1; font-size: 16px; animation-name: petalFall; }
+    .container {
+      position: relative;
+      z-index: 1;
+      width: min(1120px, calc(100% - 32px));
+      margin: 0 auto;
+    }
+    .hero {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 48px 0 28px;
+    }
+    .hero-card {
+      width: min(920px, 100%);
+      text-align: center;
+      padding: 42px 28px;
+      border-radius: 30px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid var(--line);
+      backdrop-filter: blur(14px);
+      box-shadow: var(--shadow);
+      animation: fadeUp .9s ease both;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: -20%;
+      background: radial-gradient(circle, rgba(255,255,255,.16), transparent 40%);
+      animation: pulseGlow 5s ease-in-out infinite;
+      pointer-events: none;
+    }
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 16px;
+      border-radius: 999px;
+      background: rgba(255,255,255,.10);
+      border: 1px solid rgba(255,255,255,.16);
+      color: var(--soft);
+      font-weight: 600;
+      margin-bottom: 20px;
+    }
+    h1 {
+      margin: 0;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(42px, 8vw, 82px);
+      line-height: 1.04;
+      letter-spacing: -0.03em;
+    }
+    .subtitle {
+      max-width: 720px;
+      margin: 18px auto 0;
+      color: var(--muted);
+      font-size: 18px;
+      line-height: 1.9;
+    }
+    .highlight { color: #fff; text-shadow: 0 0 24px rgba(255,126,182,.32); }
+    .actions {
+      margin-top: 28px;
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      padding: 14px 20px;
+      border-radius: 999px;
+      text-decoration: none;
+      font-weight: 700;
+      transition: .25s ease;
+      border: 1px solid transparent;
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--pink), var(--rose));
+      color: white;
+      box-shadow: 0 18px 40px rgba(255,77,141,.28);
+    }
+    .btn-secondary {
+      color: var(--text);
+      border-color: var(--line);
+      background: rgba(255,255,255,.06);
+    }
+    .btn:hover { transform: translateY(-3px) scale(1.02); }
+    section { padding: 32px 0; }
+    .section-title {
+      text-align: center;
+      font-family: "Playfair Display", serif;
+      font-size: 38px;
+      margin: 0 0 12px;
+    }
+    .section-desc {
+      text-align: center;
+      color: var(--muted);
+      max-width: 760px;
+      margin: 0 auto 24px;
+      line-height: 1.8;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 18px;
+    }
+    .card, .timeline-item, .memory-photo-wrap {
+      background: rgba(255,255,255,.08);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px;
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(12px);
+    }
+    .card { transition: transform .3s ease, box-shadow .3s ease; }
+    .card:hover {
+      transform: translateY(-8px) scale(1.02);
+      box-shadow: 0 28px 90px rgba(255,77,141,.20);
+    }
+    .card h3 { margin-top: 0; margin-bottom: 10px; color: #fff; }
+    .card p, .card li, .timeline-item p { color: var(--muted); line-height: 1.8; }
+    .card ul { margin: 0; padding-left: 18px; }
+    .quote {
+      text-align: center;
+      font-family: "Playfair Display", serif;
+      font-size: clamp(28px, 5vw, 48px);
+      line-height: 1.4;
+      color: #fff5fa;
+      margin: 10px auto 0;
+      max-width: 880px;
+    }
+    .memory-gallery {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      max-width: 920px;
+      margin: 0 auto;
+    }
+    .memory-photo-wrap { padding: 12px; }
+    .memory-photo {
+      width: 100%;
+      display: block;
+      border-radius: 20px;
+      object-fit: cover;
+      transform: rotate(-1.5deg);
+      transition: transform .35s ease, box-shadow .35s ease;
+      box-shadow: 0 20px 40px rgba(0,0,0,.22);
+    }
+    .memory-photo:hover { transform: rotate(0deg) scale(1.03); cursor: zoom-in; }
+    .lightbox { position: fixed; inset: 0; background: rgba(8, 3, 12, .88); display: none; align-items: center; justify-content: center; z-index: 30; padding: 24px; }
+    .lightbox.show { display: flex; }
+    .lightbox img { max-width: min(92vw, 1000px); max-height: 86vh; border-radius: 20px; box-shadow: 0 24px 80px rgba(0,0,0,.45); }
+    .lightbox-close { position: absolute; top: 18px; right: 22px; font-size: 34px; color: white; cursor: pointer; }
+    .memory-title {
+      margin: 12px 4px 2px;
+      text-align: center;
+      color: #fff;
+      font-weight: 700;
+    }
+    .memory-subtitle {
+      margin: 0 4px 4px;
+      text-align: center;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+    .timeline {
+      max-width: 860px;
+      margin: 0 auto;
+      position: relative;
+      padding-left: 28px;
+    }
+    .timeline::before {
+      content: "";
+      position: absolute;
+      left: 10px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, rgba(255,126,182,.8), rgba(255,216,232,.35));
+      border-radius: 999px;
+    }
+    .timeline-item {
+      position: relative;
+      margin-bottom: 22px;
+      padding: 18px 18px 18px 22px;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all .7s ease;
+    }
+    .timeline-item.show { opacity: 1; transform: translateY(0); }
+    .timeline-item::before {
+      content: "";
+      position: absolute;
+      left: -27px;
+      top: 22px;
+      width: 14px;
+      height: 14px;
+      border-radius: 999px;
+      background: linear-gradient(135deg, var(--pink), var(--rose));
+      box-shadow: 0 0 0 6px rgba(255,126,182,.12);
+    }
+    .timeline-item h3 { margin: 0 0 8px; }
+    .letter {
+      max-width: 860px;
+      margin: 0 auto;
+      background: rgba(255,255,255,.09);
+      border: 1px solid var(--line);
+      border-radius: 28px;
+      padding: 28px;
+      box-shadow: var(--shadow);
+      line-height: 2;
+      color: var(--text);
+      font-size: 17px;
+      min-height: 280px;
+    }
+    .typed-line {
+      opacity: 0;
+      transform: translateY(8px);
+      transition: opacity .6s ease, transform .6s ease;
+      margin-bottom: 14px;
+    }
+    .typed-line.show { opacity: 1; transform: translateY(0); }
+    .floating-heart-btn {
+      position: fixed;
+      right: 18px;
+      bottom: 18px;
+      width: 58px;
+      height: 58px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.2);
+      background: linear-gradient(135deg, var(--pink), var(--rose));
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      box-shadow: 0 18px 40px rgba(255,77,141,.28);
+      z-index: 5;
+      animation: heartBeat 1.8s ease-in-out infinite;
+    }
+    .burst {
+      position: fixed;
+      font-size: 18px;
+      pointer-events: none;
+      z-index: 6;
+      animation: burstUp 1.2s ease-out forwards;
+    }
+    footer {
+      text-align: center;
+      color: rgba(255,247,251,.7);
+      padding: 22px 0 36px;
+      font-size: 14px;
+    }
+    @keyframes fadeUp { from { opacity: 0; transform: translateY(26px); } to { opacity: 1; transform: translateY(0); } }
+    @keyframes floatUp { 0% { transform: translateY(100vh) scale(.8); opacity: 0; } 10% { opacity: .35; } 100% { transform: translateY(-20vh) scale(1.15); opacity: 0; } }
+    @keyframes twinkleFloat { 0% { transform: translateY(100vh) scale(.8); opacity: 0; } 10% { opacity: .5; } 50% { opacity: .15; } 100% { transform: translateY(-15vh) scale(1.05); opacity: 0; } }
+    @keyframes petalFall { 0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; } 10% { opacity: .45; } 100% { transform: translateY(110vh) translateX(40px) rotate(220deg); opacity: 0; } }
+    @keyframes backgroundShift { 0% { background-position: 0% 0%, 100% 0%, 50% 100%, 0 0; } 100% { background-position: 10% 10%, 90% 10%, 50% 90%, 0 0; } }
+    @keyframes pulseGlow { 0%,100% { transform: scale(1); opacity: .18; } 50% { transform: scale(1.08); opacity: .32; } }
+    @keyframes heartBeat { 0%,100% { transform: scale(1); } 25% { transform: scale(1.08); } 50% { transform: scale(0.98); } 75% { transform: scale(1.12); } }
+    @keyframes burstUp { 0% { transform: translateY(0) scale(.8); opacity: 1; } 100% { transform: translateY(-90px) scale(1.4); opacity: 0; } }
+    @media (max-width: 900px) {
+      .grid, .memory-gallery { grid-template-columns: 1fr; }
+      .hero-card { padding: 34px 20px; }
+      .subtitle { font-size: 16px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="hearts" id="hearts"></div>
+  <div class="stars" id="stars"></div>
+  <div class="petals" id="petals"></div>
+  <button class="floating-heart-btn" id="loveBurstBtn">♥</button>
+
+  <main class="container">
+    <section class="hero">
+      <div class="hero-card">
+        <div class="badge">💖 Một món quà nhỏ dành cho người đặc biệt nhất</div>
+        <h1><span class="highlight">Đặng Ngọc Tiến & Đặng Như Huỳnh</span></h1>
+        <p class="subtitle">
+          Nếu có một điều anh muốn biết thật rõ, thì đó là: từ khi chúng mình bắt đầu hành trình này,
+          mọi ngày bình thường bỗng trở nên dịu dàng hơn, ấm áp hơn, và đáng nhớ hơn rất nhiều.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#letter">Đọc lời nhắn</a>
+          <a class="btn btn-secondary" href="#counter">Ngày kỷ niệm</a>
+        </div>
+      </div>
+    </section>
+
+    <section id="counter">
+      <h2 class="section-title">Số ngày chúng ta đã yêu</h2>
+      <p class="section-desc">Mỗi ngày bên em là một món quà. Hãy cùng nhau đi qua thật nhiều ngày như thế này nhé!</p>
+      <div style="text-align: center;">
+        <p class="quote" id="loveDays" style="font-size: clamp(32px, 7vw, 72px);">0</p>
+        <p style="color: var(--muted); font-size: 18px;">Ngày • Giờ • Phút • Giây bên nhau</p>
+        <p class="memory-subtitle" id="loveClock">0 ngày 00 giờ 00 phút 00 giây</p>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Timeline tình yêu của chúng mình</h2>
+      <p class="section-desc">Một vài cột mốc nhỏ nhưng đủ để trái tim nhớ rất lâu.</p>
+      <div class="timeline">
+        <div class="timeline-item reveal-line">
+          <h3>07/06/2025</h3>
+          <p>Ngày chúng mình chính thức bắt đầu yêu nhau — ngày rất đặc biệt mà anh sẽ luôn nhớ.</p>
+        </div>
+        <div class="timeline-item reveal-line">
+          <h3>Những ngày đầu tiên</h3>
+          <p>Mọi thứ đều rất mới, rất dịu dàng, và trái tim anh đã quen với việc nghĩ về em mỗi ngày.</p>
+        </div>
+        <div class="timeline-item reveal-line">
+          <h3>Hôm nay</h3>
+          <p>Và đến tận bây giờ, anh vẫn thấy mình may mắn vì được yêu em và đi cùng em trên hành trình này.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="reasons">
+      <h2 class="section-title">Vì sao em luôn đặc biệt</h2>
+      <p class="section-desc">Có những điều rất nhỏ thôi, nhưng lại khiến anh nhớ rất lâu và thương rất nhiều.</p>
+      <div class="grid">
+        <div class="card"><h3>Nụ cười của em</h3><p>Nó làm mọi mệt mỏi trong anh dịu xuống. Chỉ cần em cười thôi, cả ngày của anh cũng thấy đáng hơn rất nhiều.</p></div>
+        <div class="card"><h3>Sự dịu dàng của em</h3><p>Em không cần làm điều gì quá lớn lao, chỉ cần cách em quan tâm, cách em lắng nghe cũng đủ làm tim anh mềm lại.</p></div>
+        <div class="card"><h3>Cảm giác bình yên</h3><p>Ở cạnh em, anh thấy mình muốn sống chậm hơn, tử tế hơn, và cố gắng hơn để xứng đáng với tình cảm ấy.</p></div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Một bức ảnh anh rất thích</h2>
+      <p class="section-desc">Có những khoảnh khắc không cần nói gì nhiều, chỉ cần nhìn lại thôi cũng đủ thấy hạnh phúc rồi.</p>
+      <div class="memory-gallery">
+        <div class="memory-photo-wrap">
+          <img class="memory-photo" src="./couple.jpg" alt="Đặng Ngọc Tiến và Đặng Như Huỳnh" />
+          <div class="memory-title">Khoảnh khắc đầu tiên</div>
+          <div class="memory-subtitle">Một tấm hình rất dịu dàng mà anh muốn giữ thật lâu.</div>
+        </div>
+        <div class="memory-photo-wrap">
+          <img class="memory-photo" src="./couple-3.jpg" alt="Đặng Ngọc Tiến và Đặng Như Huỳnh" />
+          <div class="memory-title">Kỷ niệm ngọt ngào</div>
+          <div class="memory-subtitle">Chỉ cần nhìn lại thôi là anh lại thấy thương em nhiều hơn.</div>
+        </div>
+        <div class="memory-photo-wrap">
+          <img class="memory-photo" src="./couple-2.jpg" alt="Đặng Ngọc Tiến và Đặng Như Huỳnh" />
+          <div class="memory-title">Nụ cười của chúng mình</div>
+          <div class="memory-subtitle">Một khoảnh khắc rất tự nhiên nhưng lại làm anh thấy ấm lòng.</div>
+        </div>
+        <div class="memory-photo-wrap">
+          <img class="memory-photo" src="./couple-7.jpg" alt="Đặng Ngọc Tiến và Đặng Như Huỳnh" />
+          <div class="memory-title">Một ngày thật đẹp</div>
+          <div class="memory-subtitle">Một bức ảnh anh muốn để lại như một dấu mốc đáng nhớ.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Khoảnh khắc chuyển động</h2>
+      <p class="section-desc">Không chỉ là ảnh, anh còn muốn giữ lại cả những khoảnh khắc sống động của chúng mình.</p>
+      <div class="memory-gallery" style="max-width: 960px;">
+        <div class="memory-photo-wrap" style="max-width: none;">
+          <video controls playsinline style="width:100%; display:block; border-radius:20px;">
+            <source src="./memory-video.mp4" type="video/mp4">
+          </video>
+          <div class="memory-title">Video kỷ niệm 01</div>
+          <div class="memory-subtitle">Những giây phút rất thật, rất gần gũi mà anh muốn cất giữ mãi.</div>
+        </div>
+        <div class="memory-photo-wrap" style="max-width: none;">
+          <video controls playsinline style="width:100%; display:block; border-radius:20px;">
+            <source src="./memory-video-2.mp4" type="video/mp4">
+          </video>
+          <div class="memory-title">Video kỷ niệm 02</div>
+          <div class="memory-subtitle">Một khoảnh khắc chuyển động để sau này mình còn mở lại và mỉm cười.</div>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="section-title">Những điều anh muốn cùng em</h2>
+      <p class="section-desc">Không cần điều gì quá xa vời. Chỉ là những điều rất đỗi bình thường, nhưng anh muốn được làm cùng em.</p>
+      <div class="grid">
+        <div class="card"><h3>Những buổi chiều yên bình</h3><ul><li>Cùng đi dạo đâu đó thật chậm</li><li>Cùng uống một ly gì đó em thích</li><li>Cùng kể nhau nghe chuyện trong ngày</li></ul></div>
+        <div class="card"><h3>Những dịp đặc biệt</h3><ul><li>Cùng chụp những bức ảnh đẹp</li><li>Cùng ăn món em thích</li><li>Cùng tạo thêm thật nhiều kỷ niệm đáng nhớ</li></ul></div>
+        <div class="card"><h3>Những ngày bình thường</h3><ul><li>Hỏi em hôm nay có vui không</li><li>Nhắc em nghỉ ngơi khi em mệt</li><li>Luôn là người ở đó khi em cần</li></ul></div>
+      </div>
+    </section>
+
+    <section id="letter">
+      <h2 class="section-title">Một lời nhắn dành riêng cho Đặng Như Huỳnh</h2>
+      <div class="letter" id="typedLetter">
+        <div class="typed-line">Gửi Cục Zàng của anh,</div>
+        <div class="typed-line">Anh không biết phải dùng bao nhiêu lời mới đủ để nói hết những gì anh cảm nhận về em.</div>
+        <div class="typed-line">Chỉ biết rằng, từ khi có em, trái tim anh học được cách rung động thật dịu dàng.</div>
+        <div class="typed-line">Em đến như một điều rất đẹp — không ồn ào, không phô trương, nhưng đủ để ở lại rất sâu trong lòng anh.</div>
+        <div class="typed-line">Cảm ơn em vì đã xuất hiện. Cảm ơn em vì đã là chính em — đáng yêu, ấm áp, và đặc biệt theo một cách không ai có thể thay thế.</div>
+        <div class="typed-line">Dù sau này mình đi qua những ngày vui hay những lúc mệt mỏi, anh chỉ mong vẫn có thể nắm tay em, ở cạnh em, và thương em bằng tất cả sự chân thành mà anh có.</div>
+        <div class="typed-line">Nếu em hỏi anh điều gì là ngọt ngào nhất, thì có lẽ đó là cảm giác được nghĩ về em mỗi ngày.</div>
+
+      </div>
+    </section>
+
+    <section>
+      <p class="quote">“Em không chỉ là một người anh thương, mà còn là điều dịu dàng nhất mà cuộc sống đã gửi đến cho anh.”</p>
+    </section>
+  </main>
+
+  <footer>
+    Made with love 💗 • Dành tặng Đặng Như Huỳnh
+  </footer>
+
+  <div class="lightbox" id="lightbox">
+    <div class="lightbox-close" id="lightboxClose">×</div>
+    <img id="lightboxImage" src="" alt="Xem ảnh lớn" />
+  </div>
+
+  <script>
+    const hearts = document.getElementById('hearts');
+    const stars = document.getElementById('stars');
+    const petals = document.getElementById('petals');
+    function spawn(container, className, symbol, count, minDur, maxDur) {
+      for (let i = 0; i < count; i++) {
+        const el = document.createElement('div');
+        el.className = className;
+        el.textContent = symbol;
+        el.style.left = Math.random() * 100 + 'vw';
+        el.style.animationDuration = (Math.random() * (maxDur - minDur) + minDur) + 's';
+        el.style.animationDelay = (Math.random() * 8) + 's';
+        el.style.fontSize = (Math.random() * 14 + 12) + 'px';
+        container.appendChild(el);
+      }
+    }
+    spawn(hearts, 'heart', '♥', 22, 8, 16);
+    spawn(stars, 'star', '✦', 28, 10, 18);
+    spawn(petals, 'petal', '❀', 18, 9, 16);
+
+    const startDate = new Date('2025-06-07T00:00:00');
+    function updateLoveClock() {
+      const now = new Date();
+      const diff = Math.max(0, now - startDate);
+      const totalSeconds = Math.floor(diff / 1000);
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+      document.getElementById('loveDays').textContent = days;
+      document.getElementById('loveClock').textContent = `${days} ngày ${String(hours).padStart(2,'0')} giờ ${String(minutes).padStart(2,'0')} phút ${String(seconds).padStart(2,'0')} giây`;
+    }
+    updateLoveClock();
+    setInterval(updateLoveClock, 1000);
+
+    const burstBtn = document.getElementById('loveBurstBtn');
+    burstBtn.addEventListener('click', () => {
+      for (let i = 0; i < 12; i++) {
+        const el = document.createElement('div');
+        el.className = 'burst';
+        el.textContent = ['♥','💖','✨','💕','❀'][Math.floor(Math.random() * 5)];
+        const x = window.innerWidth - 55 + (Math.random() * 40 - 20);
+        const y = window.innerHeight - 55 + (Math.random() * 20 - 10);
+        el.style.left = x + 'px';
+        el.style.top = y + 'px';
+        document.body.appendChild(el);
+        setTimeout(() => el.remove(), 1200);
+      }
+    });
+
+    const lines = document.querySelectorAll('.typed-line');
+    const lineObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          lines.forEach((line, index) => setTimeout(() => line.classList.add('show'), index * 700));
+          lineObserver.disconnect();
+        }
+      });
+    }, { threshold: 0.25 });
+    lineObserver.observe(document.getElementById('typedLetter'));
+
+    const galleryImages = document.querySelectorAll('.memory-photo');
+    const lightbox = document.getElementById('lightbox');
+    const lightboxImage = document.getElementById('lightboxImage');
+    const lightboxClose = document.getElementById('lightboxClose');
+    galleryImages.forEach(img => {
+      img.addEventListener('click', () => {
+        lightboxImage.src = img.src;
+        lightbox.classList.add('show');
+      });
+    });
+    lightboxClose.addEventListener('click', () => lightbox.classList.remove('show'));
+    lightbox.addEventListener('click', (e) => { if (e.target === lightbox) lightbox.classList.remove('show'); });
+
+    const revealItems = document.querySelectorAll('.reveal-line');
+    const revealObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => { if (entry.isIntersecting) entry.target.classList.add('show'); });
+    }, { threshold: 0.2 });
+    revealItems.forEach(item => revealObserver.observe(item));
+  </script>
+</body>
+</html>
