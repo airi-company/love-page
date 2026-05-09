@@ -200,6 +200,29 @@
       transition: transform .35s ease, box-shadow .35s ease;
       box-shadow: 0 20px 40px rgba(0,0,0,.22);
     }
+    .hero-memory {
+      width: min(720px, 100%);
+      margin: 28px auto 0;
+      padding: 12px;
+      border-radius: 28px;
+      background: rgba(255,255,255,.08);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+    .hero-memory img {
+      width: 100%;
+      display: block;
+      border-radius: 22px;
+      object-fit: cover;
+      max-height: 420px;
+    }
+    .video-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      max-width: 960px;
+      margin: 0 auto;
+    }
     .memory-photo:hover { transform: rotate(0deg) scale(1.03); cursor: zoom-in; }
     .lightbox { position: fixed; inset: 0; background: rgba(8, 3, 12, .88); display: none; align-items: center; justify-content: center; z-index: 30; padding: 24px; }
     .lightbox.show { display: flex; }
@@ -313,7 +336,7 @@
     @keyframes heartBeat { 0%,100% { transform: scale(1); } 25% { transform: scale(1.08); } 50% { transform: scale(0.98); } 75% { transform: scale(1.12); } }
     @keyframes burstUp { 0% { transform: translateY(0) scale(.8); opacity: 1; } 100% { transform: translateY(-90px) scale(1.4); opacity: 0; } }
     @media (max-width: 900px) {
-      .grid, .memory-gallery { grid-template-columns: 1fr; }
+      .grid, .memory-gallery, .video-grid { grid-template-columns: 1fr; }
       .hero-card { padding: 34px 20px; }
       .subtitle { font-size: 16px; }
     }
@@ -337,6 +360,9 @@
         <div class="actions">
           <a class="btn btn-primary" href="#letter">Đọc lời nhắn</a>
           <a class="btn btn-secondary" href="#counter">Ngày kỷ niệm</a>
+        </div>
+        <div class="hero-memory">
+          <img src="./hero-couple.jpg" alt="Khoảnh khắc ngọt ngào của Đặng Ngọc Tiến và Đặng Như Huỳnh" />
         </div>
       </div>
     </section>
@@ -404,22 +430,42 @@
           <div class="memory-title">Một ngày thật đẹp</div>
           <div class="memory-subtitle">Một bức ảnh anh muốn để lại như một dấu mốc đáng nhớ.</div>
         </div>
+        <div class="memory-photo-wrap">
+          <img class="memory-photo" src="./couple-4.jpg" alt="Đặng Ngọc Tiến và Đặng Như Huỳnh" />
+          <div class="memory-title">Gần nhau thêm một chút</div>
+          <div class="memory-subtitle">Một khung hình làm anh thấy bình yên chỉ vì có em ở đó.</div>
+        </div>
+        <div class="memory-photo-wrap">
+          <img class="memory-photo" src="./couple-5.jpg" alt="Đặng Ngọc Tiến và Đặng Như Huỳnh" />
+          <div class="memory-title">Kỷ niệm thật mềm mại</div>
+          <div class="memory-subtitle">Một ánh nhìn, một khoảnh khắc, đủ để giữ lại cả một cảm xúc.</div>
+        </div>
+        <div class="memory-photo-wrap">
+          <img class="memory-photo" src="./couple-6.jpg" alt="Đặng Ngọc Tiến và Đặng Như Huỳnh" />
+          <div class="memory-title">Chỉ cần có em</div>
+          <div class="memory-subtitle">Những điều nhỏ bé bên em lúc nào cũng thành điều đáng nhớ.</div>
+        </div>
+        <div class="memory-photo-wrap">
+          <img class="memory-photo" src="./hero-couple.jpg" alt="Đặng Ngọc Tiến và Đặng Như Huỳnh" />
+          <div class="memory-title">Khoảnh khắc nổi bật</div>
+          <div class="memory-subtitle">Một tấm hình anh muốn đặt ở vị trí thật đẹp vì nó quá đỗi dịu dàng.</div>
+        </div>
       </div>
     </section>
 
     <section>
       <h2 class="section-title">Khoảnh khắc chuyển động</h2>
       <p class="section-desc">Không chỉ là ảnh, anh còn muốn giữ lại cả những khoảnh khắc sống động của chúng mình.</p>
-      <div class="memory-gallery" style="max-width: 960px;">
+      <div class="video-grid">
         <div class="memory-photo-wrap" style="max-width: none;">
-          <video controls playsinline style="width:100%; display:block; border-radius:20px;">
+          <video controls playsinline poster="./hero-couple.jpg" style="width:100%; display:block; border-radius:20px;">
             <source src="./memory-video.mp4" type="video/mp4">
           </video>
           <div class="memory-title">Video kỷ niệm 01</div>
           <div class="memory-subtitle">Những giây phút rất thật, rất gần gũi mà anh muốn cất giữ mãi.</div>
         </div>
         <div class="memory-photo-wrap" style="max-width: none;">
-          <video controls playsinline style="width:100%; display:block; border-radius:20px;">
+          <video controls playsinline poster="./couple-5.jpg" style="width:100%; display:block; border-radius:20px;">
             <source src="./memory-video-2.mp4" type="video/mp4">
           </video>
           <div class="memory-title">Video kỷ niệm 02</div>
